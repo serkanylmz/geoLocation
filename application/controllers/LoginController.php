@@ -3,17 +3,28 @@
 class LoginController extends Zend_Controller_Action
 {
     protected $config;
+    public $db;
     public function init()
     {
- 
+        
     }
 
     public function indexAction()
     {
-        
-     $config = new Zend_Config_Ini(APPLICATION_PATH.'/configs/application.ini',APPLICATION_ENV); 
-//     echo $config->resources->db->params->dbname; 
+     $this->view->formAction = array('action' => 'check');
+    }
     
+    public function checkAction()
+    {
+        $login = new Application_Model_Login();
+   
+        $username = $this->_request->getParam("txtUsername");
+        $password = $this->_request->getParam("txtPassword");
+        
+
+        $result = $login->loginControl($username, $password);
+        print_r($result);
+       
     }
     
 

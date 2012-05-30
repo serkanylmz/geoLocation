@@ -1,9 +1,14 @@
-<form action="insert" method="post" id="personForm">
+<form action="<?=$this->url($this->formAction);?>" method="post" id="personForm">
 
-
-<table>
+<div style="margin-top: 200px;margin-left: 500px;border: 1px solid gray; padding: 20px 20px 20px 20px; width:300px">
+        <table style="width:300px;">
     
-    <tr><td>Kullanıcı Adı :</td> <td><input type="text" name="txtUsername" id="txtUsername"></td></tr>
-<tr><td>Şifre :</td> <td><input type="text" name="txtPassword" id="txtPassword"></td></tr>
+<tr><td>Kullanıcı Adı :</td> <td><input type="text" name="txtUsername" id="txtUsername" value="<?=$this->data['name'];?>"></td></tr>
+<tr><td>Şifre :</td> <td><input type="text" name="txtPassword" id="txtPassword" value="<?=$this->data['password'];?>"></td></tr>
+<tr><td></td> <td><input type="submit" name="btnLogin" id="btnLogin" value="Login"></td></tr>
 </table>
-    </form>
+</div>
+
+    
+
+</form>
