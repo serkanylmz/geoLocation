@@ -3,60 +3,47 @@
 class IndexController extends Zend_Controller_Action
 {
 
-    public function init()
-    {
-     
-    }
+    public function init(){}
 
-    public function indexAction()
-    {
-         
-        
-         $login = new Application_Model_Login();
+    public function indexAction(){
          
         $this->view->formAction = array('action' => 'close');
         $auth = Zend_Auth::getInstance();
-        if (!$auth->hasIdentity()) {
+
+        if ( !$auth->hasIdentity() ) {
+
             $this->_redirect("login");
-           
+
         }
-       
-         $ses = new Zend_Session_Namespace();
-   
-         
-         $id = $login->getID(   $ses->username,    $ses->password);
-         
-         $ses->id = $id;
-        
     }
     
-     public function closeAction()
-    {
+     public function closeAction(){
+
          Zend_Session::destroy();
          $this->_redirect("login");
-        
+
     }
      
     
-    public function  corgetAction()
-    {
+    public function corgetAction(){
+
         $lat = $this->_getParam("lat");
         $lng = $this->_getParam("lng");
-        $ses = new Zend_Session_Namespace();
+
+        $session = new Zend_Session_Namespace();
+
         $data = array(
           
-            'user_id' => $ses->id,
+            'user_id' => $session->id,
             'lat'=>$lat,
             'lng'=>$lng
             
         );
-        
-        
+
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->insert('coords',$data);
-        
-        
-         exit(json_encode(array("result"=>true)));
+
+        exit(json_encode(array("result"=>true)));
     }
 
 

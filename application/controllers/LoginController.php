@@ -2,62 +2,48 @@
 
 class LoginController extends Zend_Controller_Action
 {
-    protected $config;
-    public $db;
-    
-    public function init()
-    {
-       
-    }
 
-    public function indexAction()
-    {
-     header("Content-Type: text/html; charset=UTF-8");
-     Zend_Session::start();
-     $this->view->formAction = array('action' => 'check');
-     if($this->_request->getParam("error") == "!")
-     {
-         
-        $this->_redirect("login");
-         
-     }
+    public function init(){}
+
+    public function indexAction(){
+
+        Zend_Session::start();
+
+        $this->view->formAction = array('action' => 'check');
+
+        if($this->_request->getParam("error") == "!")
+        {
+
+            $this->_redirect("login");
+
+        }
     
     }
     
-    public function checkAction()
-    {
-        
-        
-        $login = new Application_Model_Login();
-   
+    public function checkAction(){
+
         $username = $this->_request->getParam("txtUsername");
         $password = $this->_request->getParam("txtPassword");
         
-        if($username != "" || $password != "")
-        {
-            
+        if($username != "" || $password != ""){
+
+            $login = new Application_Model_Login();
+            $result = $login->loginControl($username, $password);
         
-        $result = $login->loginControl($username, $password);
+            if($result == 1){
+
+                $this->_redirect("index");
+
+            } else {
+
+                $this->_redirect('login?error=!');
+
+            }
         
-        if($result == 1)
-        {
-           
-            $this->_redirect("index");
-        }
-        else
-        {
-            $this->_redirect('login?error=!');
-        }
-        
-        }
-        else{
+        } else {
             
             echo "Kutular boş"; 
         }
  
     }
-    
-    
-    
-
 }
