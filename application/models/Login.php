@@ -26,8 +26,6 @@ class Application_Model_Login {
         if($valid_user->isValid()){
 
               $value = 1;
-              $session->username = $username;
-              $session->password = $password;
               $session->id = $auth_adapter->getResultRowObject()->id;
 
         } else {
